@@ -158,16 +158,18 @@ class ApiServices {
 
   async getProductDetails(productId: string): Promise<IProduct> {
     const response = await fetch(
-      this.#BASE_URL + "/api/v1/products/" + productId
+      'https://ecommerce.routemisr.com/api/v1/products/' + productId 
     );
+    console.log(productId)
     const { data: product } = await response.json();
     return product;
   }
 
-  async getCategoryDetails(categoriesId: string): Promise<ICategory> {
+  async getCategoryDetails(categoryId: string): Promise<ICategory> {
     const response = await fetch(
-      this.#BASE_URL + "/api/v1/categories/" + categoriesId
+      this.#BASE_URL + "/api/v1/categories/" + categoryId
     );
+    console.log(response)
     const data  = await response.json();
     console.log(data)
     return data.data;
@@ -300,10 +302,10 @@ class ApiServices {
 
   async getCategories(): Promise<ICategory[]> {
     const response = await fetch(
-      this.#BASE_URL + "/api/v1/categories",
+      "https://ecommerce.routemisr.com/api/v1/categories",
       {
         method: "get",
-        headers: this.#getHeaders(),
+        // headers: this.#getHeaders(),
       }
     );
 

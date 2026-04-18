@@ -98,7 +98,6 @@ export function ProductCard({
     toast.success("Failed to add to wishlist");
   }
 }
-
   return (
     <Card className="w-full max-w-sm overflow-hidden group bg-backgrou text-foreground shadow-xl hover:shadow-lg transition-all duration-300 rounded-md">
       {/* Image carousel */}
@@ -172,7 +171,7 @@ export function ProductCard({
       <CardContent className="p-4">
         <div className="space-y-3">
           <div>
-            <Link href={'/products/' +id} className="font-medium line-clamp-1">{name}</Link>
+            <Link href={`/shop/${id}`} className="font-medium line-clamp-1">{name }</Link>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex items-center">
                 <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
