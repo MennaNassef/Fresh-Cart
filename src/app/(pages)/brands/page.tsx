@@ -3,8 +3,10 @@ import { ProductCard } from '@/components/product/ProductCard'
 import React from 'react'
 import Link from "next/link";
 import { FeatureBar2 } from '@/components/layout/Home/FeatureBar';
+import Cookies from "js-cookie";
 export default async function Brands() {
-    const brands = await apiServices.getBrands()
+    const token = Cookies.get("token") || "";
+    const brands = await apiServices.getBrands(token)
     console.log(brands)
     return (
     
