@@ -150,10 +150,10 @@ class ApiServices {
   }
 
   async getProducts(): Promise<IProduct[]> {
-    const response = await fetch(this.#BASE_URL + "/api/v1/products");
-    const { data: product }: ResponseType<IProduct> =
-      await response.json();
-    return product;
+    const response = await fetch('https://ecommerce.routemisr.com/api/v1/products');
+    console.log(response)
+    const data=await response.json();
+    return data?.data || [];;
   }
 
   async getProductDetails(productId: string): Promise<IProduct> {
