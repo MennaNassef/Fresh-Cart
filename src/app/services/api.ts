@@ -311,19 +311,20 @@ class ApiServices {
     return data.data;
   }
 
-  async getBrands(): Promise<IBrand[]> {
-    const response = await fetch(
-      this.#BASE_URL + "/api/v1/brands",
-      {
-        method: "get",
-        headers: this.#getHeaders(),
-      }
-    );
+ async getBrands(): Promise<IBrand[]> {
+  const response = await fetch(this.#BASE_URL + "/api/v1/brands", {
+    method: "GET",
+    headers: this.#getHeaders(),
+  });
 
-    const data = await response.json();
-    
-    return data.data;
+  if (!response.ok) {
+    throw new Error("Failed to fetch brands");
   }
+
+  const data = await response.json();
+
+  return data?.data || [];
+}
   async addProductToWishlist(productId: string): Promise<IWishlistResponse> {
     const response = await fetch(this.#BASE_URL + "/api/v1/wishlist/", {
       method: "post",
