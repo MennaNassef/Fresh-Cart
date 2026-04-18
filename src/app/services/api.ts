@@ -321,11 +321,20 @@ class ApiServices {
         headers:{  "content-type": "application/json",
       token: token || "",
   }});
-      
+      const text = await response.text();
 
-    const data = await response.json();
-    
+  if (!response.ok) {
+    console.error("API Error:", text);
+    return [];
+  }
+
+  try {
+    const data = JSON.parse(text);
     return data.data;
+  } catch (err) {
+    console.error("Invalid JSON:", text);
+    return [];
+  }
   }
   async addProductToWishlist(productId: string): Promise<IWishlistResponse> {
     const response = await fetch(this.#BASE_URL + "/api/v1/wishlist/", {
