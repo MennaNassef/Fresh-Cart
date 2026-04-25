@@ -2,9 +2,21 @@ import apiServices from '@/app/services/api'
 import { ProductCard } from '@/components/product/ProductCard'
 import React from 'react'
 import Link from "next/link";
+import { cookies } from "next/headers";
+import {decode} from 'next-auth/jwt'
 export default async function Shop() {
     const products = await apiServices.getProducts()
-    
+
+    const cookie =await cookies();
+      const myToken =
+       cookie.get("next-auth.session-token")?.value ||
+       cookie.get("__Secure-next-auth.session-token")?.value;
+      console.log(myToken)
+      
+      const decodedToken=await decode({token:myToken ,secret:process.env.NEXTAUTH_SECRET!})
+     
+      console.log(decodedToken)
+      if (decodedToken) {
     return (
     
     <div>
@@ -42,10 +54,11 @@ export default async function Shop() {
             
             {
                 products.map((product) => (
-                <ProductCard id={product._id} name={product.title} images={product.images} rating={product.ratingsAverage} reviewCount={product.ratingsQuantity} price={product.price} originalPrice={product.price + 100} />))
+                <ProductCard id={product._id} name={product.title} images={product.images} rating={product.ratingsAverage} reviewCount={product.ratingsQuantity} price={product.price} originalPrice={product.price + 100} token={decodedToken.token}/>))
             }
         </div>
         
     </div>
     )
+}
 }

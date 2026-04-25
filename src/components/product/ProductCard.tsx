@@ -34,7 +34,8 @@ export interface ProductCardProps {
   isBestSeller?: boolean;
   discount?: number;
   freeShipping?: boolean;
-  id:string
+  id:string;
+token:string
 }
 
 export function ProductCard({
@@ -50,7 +51,8 @@ export function ProductCard({
   isBestSeller = true,
   discount = 30,
   freeShipping = true,
-  id
+  id,
+  token
 }: ProductCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -90,12 +92,20 @@ export function ProductCard({
   try {
     setIsWishlisted(true); // optimistic UI
 
-    const adddWishlistItem=await apiServices.addProductToWishlist(productId)
+    const adddWishlistItem=await apiServices.addProductToWishlist(productId,token)
     console.log(adddWishlistItem)
-    toast.success(adddWishlistItem.message);
+    toast.success(adddWishlistItem.message, {
+      style:{
+        color:'green'
+      }
+        });
   } catch (error) {
     setIsWishlisted(false); 
-    toast.success("Failed to add to wishlist");
+    toast.success("Failed to add to wishlist", {
+      style:{
+        color:'red'
+      }
+        });
   }
 }
   return (
