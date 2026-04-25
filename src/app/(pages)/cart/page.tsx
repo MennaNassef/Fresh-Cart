@@ -8,15 +8,18 @@ export default async function Cart() {
   
   
   const cookie =await cookies();
-    const myToken = cookie.get("next-auth.session-token")?.value;
+  const myToken =
+   cookie.get("next-auth.session-token")?.value ||
+   cookie.get("__Secure-next-auth.session-token")?.value;
+    // const myToken = cookie.get("next-auth.session-token")?.value;
     console.log(myToken)
         var decodedToken=await decode({token:myToken ,secret:process.env.NEXTAUTH_SECRET!})
         console.log(decodedToken)
     if (!myToken) {
-      console.log("gyug")
       redirect("/auth/signin");
     }
     if(decodedToken){
+      console.log(decodedToken)
       const cart=await apiServices.getCart(decodedToken.token)
       console.log(cart);
       return (
