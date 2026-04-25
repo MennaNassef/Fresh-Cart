@@ -23,7 +23,8 @@ export default function CartContextProvider({
     const[isLoading,setIsLoading]=useState(true);
 
     async function getCart(){
-         const token = Cookies.get("token") || ""
+        //  const token = Cookies.get("token") || ""
+        const token = localStorage.getItem("token");
         setIsLoading(true)
         const resopnse=apiServices.getCart(token)
         setCartCount((await resopnse).numOfCartItems)

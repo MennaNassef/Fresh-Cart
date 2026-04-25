@@ -35,7 +35,6 @@ export interface ProductCardProps {
   discount?: number;
   freeShipping?: boolean;
   id:string;
-token:string
 }
 
 export function ProductCard({
@@ -52,7 +51,6 @@ export function ProductCard({
   discount = 30,
   freeShipping = true,
   id,
-  token
 }: ProductCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -92,7 +90,7 @@ export function ProductCard({
   try {
     setIsWishlisted(true); // optimistic UI
 
-    const adddWishlistItem=await apiServices.addProductToWishlist(productId,token)
+    const adddWishlistItem=await apiServices.addProductToWishlist(productId)
     console.log(adddWishlistItem)
     toast.success(adddWishlistItem.message, {
       style:{

@@ -257,7 +257,7 @@ class ApiServices {
       this.#BASE_URL +
         "/api/v1/orders/checkout-session/" +
         cartId +
-        "?url=${process.env.NEXT_PUBLIC_BASE_URL",
+        `?url=${process.env.NEXT_PUBLIC_BASE_URL}`,
       {
         method: "post",
         headers: this.#getHeaders(),
@@ -336,15 +336,13 @@ class ApiServices {
     return [];
   }
   }
-  async addProductToWishlist(productId: string,token:string): Promise<IWishlistResponse> {
+  async addProductToWishlist(productId: string): Promise<IWishlistResponse> {
     const response = await fetch(this.#BASE_URL + "/api/v1/wishlist/", {
       method: "post",
       body: JSON.stringify({
         productId,
       }),
-      headers:{  "content-type": "application/json",
-      token: token || "",
-  }
+      headers: this.#getHeaders(),
     });
 
     const data = await response.json();

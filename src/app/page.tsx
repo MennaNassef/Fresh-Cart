@@ -7,19 +7,12 @@ import CategoriesAndCard from '@/components/layout/Home/CategoriesAndCard'
 import HeroSection from '@/components/layout/Home/HeroSection'
 import { ProductCard } from '@/components/product/ProductCard'
 
-import { cookies } from "next/headers";
-import {decode} from 'next-auth/jwt'
+
 export default async function Home() {
-const cookie =await cookies();
-const myToken =
-  cookie.get("next-auth.session-token")?.value ||
-  cookie.get("__Secure-next-auth.session-token")?.value;
-console.log(myToken)
-const decodedToken=await decode({token:myToken ,secret:process.env.NEXTAUTH_SECRET!})
-console.log(decodedToken)
+
 const products = await apiServices.getProducts()
-if (decodedToken) {
-  return (
+
+return (
     <div className='grid gap-6'>
       <HeroSection />
       <FeatureBar1/>
@@ -31,14 +24,12 @@ if (decodedToken) {
       <div className='grid grid-cols-4 gap-4 px-16'>
         {
           products.map((product) => (
-          <ProductCard id={product._id} name={product.title} images={product.images} rating={product.ratingsAverage} reviewCount={product.ratingsQuantity} price={product.price} originalPrice={product.price + 100} token={decodedToken.token}/>))
+          <ProductCard id={product._id} name={product.title} images={product.images} rating={product.ratingsAverage} reviewCount={product.ratingsQuantity} price={product.price} originalPrice={product.price + 100} />))
         }
       </div>
       <Newsletter/>
       {/* <FeatureBar2/> */}
     </div>
   )
-}
-
   
 }
