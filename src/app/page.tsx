@@ -27,7 +27,7 @@ export default async function Home() {
         }
       </div>
       <Newsletter/>
-      <FeatureBar2/>
+      {/* <FeatureBar2/> */}
     </div>
   )
 }

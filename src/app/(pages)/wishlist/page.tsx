@@ -11,7 +11,10 @@ import WishlistAllItems from "../../../components/layout/wishlist/wishlistAllIte
 
 export default async function WishlistPage() {
   const cookie =await cookies();
-  const myToken = cookie.get("next-auth.session-token")?.value;
+  const myToken =
+   cookie.get("next-auth.session-token")?.value ||
+   cookie.get("__Secure-next-auth.session-token")?.value;
+  // const myToken = cookie.get("next-auth.session-token")?.value;
   console.log(myToken)
   if (!myToken) {
     return (

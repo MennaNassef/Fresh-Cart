@@ -69,7 +69,7 @@ const subCategories = await apiServices.getSubcategories(category?._id);
           </Link>
           ))}
         </div>
-        <FeatureBar2/>
+        {/* <FeatureBar2/> */}
         
     </div>
   )

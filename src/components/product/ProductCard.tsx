@@ -101,7 +101,7 @@ export function ProductCard({
   return (
     <Card className="w-full max-w-sm overflow-hidden group bg-backgrou text-foreground shadow-xl hover:shadow-lg transition-all duration-300 rounded-md">
       {/* Image carousel */}
-      <div className="relative aspect-[3/4] overflow-hidden ">
+      <div className="relative aspect-3/4 overflow-hidden ">
         <motion.img
           key={currentImageIndex}
           src={images[currentImageIndex]}
