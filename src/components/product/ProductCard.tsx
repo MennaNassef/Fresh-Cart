@@ -35,6 +35,7 @@ export interface ProductCardProps {
   discount?: number;
   freeShipping?: boolean;
   id:string;
+  
 }
 
 export function ProductCard({

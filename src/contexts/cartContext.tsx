@@ -21,15 +21,22 @@ export default function CartContextProvider({
 }){
     const[cartCount,setCartCount]=useState(0);
     const[isLoading,setIsLoading]=useState(true);
+    async function getCart() {
+  setIsLoading(true);
 
-    async function getCart(){
-        //  const token = Cookies.get("token") || ""
-        const token = localStorage.getItem("token");
-        setIsLoading(true)
-        const resopnse=apiServices.getCart(token)
-        setCartCount((await resopnse).numOfCartItems)
-        setIsLoading(false)
-    }
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    setIsLoading(false);
+    return;
+  }
+
+  const response = await apiServices.getCart(token);
+
+  setCartCount(response.numOfCartItems);
+
+  setIsLoading(false);
+}
     useEffect(()=>{
         getCart();
     },[])
